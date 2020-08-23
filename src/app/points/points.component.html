@@ -1,0 +1,40 @@
+<div class="row">
+  <div class="col-6 offset-3">
+    <h1 class="text-center">Rectangle Points</h1>
+    <hr>
+    <form [formGroup]="rectanglePointsForm" (ngSubmit)="addRectangle()">
+      <div class="input-group">
+        <input type="number" min="0" formControlName="pointX" class="form-control mr-2" placeholder="Point x">
+        <input type="number" min="0" formControlName="pointY" class="form-control" placeholder="Point y">
+      </div>
+      <div class="input-group mt-2">
+        <input type="number" min="0" formControlName="width" class="form-control mr-2" placeholder="Width">
+        <input type="number" min="0" formControlName="height" class="form-control" placeholder="Height">
+      </div>
+      <div class="d-flex justify-content-end">
+        <button class="btn btn-secondary mt-2" type="submit">Add</button>
+        <button class="btn btn-warning mt-2 ml-2" (click)="clear()" type="button">Clear</button>
+      </div>
+    </form>
+    <div class="d-flex justify-content-around">
+      <div class="text-center" *ngFor="let rect of rectangles; index as i">
+        {{i + 1}}. Rectangle <br>
+        Point X = {{rect.pointX}},
+        Point Y = {{rect.pointY}}
+        <br>
+        Width = {{rect.width}},
+        Height = {{rect.height}}
+        <hr>
+      </div>
+    </div>
+    <div *ngIf="rectangles.length == 2" class="d-flex justify-content-center">
+      <button class="btn btn-warning mt-2" (click)="isOverlapped()" type="button">Check Overlapping</button>
+    </div>
+
+    <div class="canvas" *ngIf="rectangles.length > 0">
+      <div class="rectangle" *ngFor="let rect of rectangles"
+        [ngStyle]="{'top':rect.pointY + 'px', 'left':rect.pointX + 'px', 'width':rect.width+'px', 'height':rect.height+'px'}">
+      </div>
+    </div>
+  </div>
+</div>
